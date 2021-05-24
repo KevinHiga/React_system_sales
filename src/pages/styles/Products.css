@@ -1,0 +1,34 @@
+.Products__hero {
+    width: 100%;
+    padding: 0.7rem 0;
+    background: #ffffff;
+    background-repeat: repeat;
+    margin-bottom: 1rem;
+  }
+  
+  .Products__hero>.Products__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .Products__container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .Products_conf-logo {
+    margin-bottom: 2rem;
+    height: 100px;
+  }
+  
+  .Products__buttons {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .Products__buttons_cancel {
+    margin-left: 2rem;
+    text-align: right;
+  }
+  
