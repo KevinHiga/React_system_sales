@@ -7,7 +7,7 @@ function Layout(props) {
 
   return (
     <React.Fragment>
-      <NavBar name={props.name} setName={props.name}/>
+      <NavBar name={props.name} setName={props.name} admin={props.admin} setAdmin={props.admin}/>
       {props.children}
     </React.Fragment>
   );

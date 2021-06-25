@@ -1,8 +1,7 @@
 import React from "react";
-import "./styles/BooksNew.css";
-import "./styles/Bookss.css";
 import ForgotPasswordForm from "../components/ForgotPasswordForm";
 import swal from "sweetalert2";
+import "../pages/styles/ForgotPassword.css";
 
 class ForgotPassword extends React.Component {
   state = {
@@ -30,10 +29,18 @@ class ForgotPassword extends React.Component {
     });
   }
 
-  alertError() {
+  alertError(message) {
     swal.fire({
       title: "Opps!",
-      text: `Ha ocurrido algo inesperado, vuelve a intentarlo nuevamente`,
+      text: `${message}, try again`,
+      icon: "error",
+    });
+  }
+
+  alertErrorPassword() {
+    swal.fire({
+      title: "Opps!",
+      text: `Las contraseñas no coinciden`,
       icon: "error",
     });
   }
@@ -47,7 +54,7 @@ class ForgotPassword extends React.Component {
       })
       .then((result) => {
         if (result.value || !result.value) {
-          this.props.history.push("/");
+          this.props.history.push("/login");
         }
       });
   }
@@ -56,8 +63,7 @@ class ForgotPassword extends React.Component {
     const data = [
       {
         username: this.state.form.username,
-        newpassword: this.state.form.newpassword,
-        confirmpassword: this.state.form.confirmpassword,
+        password: this.state.form.confirmpassword,
       },
     ];
     const requestOptions = {
@@ -72,17 +78,27 @@ class ForgotPassword extends React.Component {
       this.alertData(valuesFilter);
     } else {
       this.setState({ loading: true, error: null });
-      fetch("https://localhost:3030/library", requestOptions)
-        .then((response) => {
-          console.log(response.json());
-          this.setState({ loading: false });
-          console.log(this.state.form);
-          this.alertSuccess();
-        })
-        .catch((error) => {
-          this.setState({ loading: false, error: error });
-          this.alertError();
-        });
+      if (this.state.form.newpassword !== this.state.form.confirmpassword) {
+        this.alertErrorPassword();
+      }
+      else {
+        fetch("http://localhost:8080/api/forgot", requestOptions)
+          .then(async response => {
+            const isJson = response.headers.get('content-type')?.includes('application/json');
+            const data = isJson && await response.json();
+            if (!response.ok) {
+              this.alertError(data.message);
+            }
+            else{
+              this.setState({ loading: false });
+              this.alertSuccess();
+            }
+          })
+          .catch((error) => {
+            this.setState({ loading: false, error: error });
+            this.alertError();
+          });
+      }
     }
   };
 

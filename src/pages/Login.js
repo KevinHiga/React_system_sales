@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-
+import PageLoading from "../components/PageLoading";
 import "./styles/Login.css";
+import UAParser from "../../node_modules/ua-parser-js";
 import swal from "sweetalert2";
 import LoginForm from "../components/LoginForm";
 
@@ -34,10 +35,10 @@ export default class Login extends Component {
     });
   }
 
-  alertError() {
+  alertError(message) {
     swal.fire({
       title: "Opps!",
-      text: `Ha ocurrido algo inesperado, vuelve a intentarlo nuevamente`,
+      text: `${message}`,
       icon: "error",
     });
   }
@@ -48,20 +49,26 @@ export default class Login extends Component {
         title: "Se ingreso Exitosamente!",
         text: "Se ha ingresado con exito",
         icon: "success",
-      })
-      .then((result) => {
-        if (result.value || !result.value) {
-          this.props.history.push("/products");
+        onClose: () => {
+          this.props.history.push("/dashboard");
           window.location = window.location.href;
-        }
+        },
       });
   }
   handleSubmit = async (e) => {
     e.preventDefault();
+    var parser = new UAParser();
+    var result = parser.getResult();
+    var name = result.browser.name;
+    var version = result.os.name;
     const data = [
       {
         username: this.state.form.username,
         password: this.state.form.password,
+        session: {
+          browser: name,
+          os: version
+        }
       },
     ];
     const requestOptions = {
@@ -77,27 +84,22 @@ export default class Login extends Component {
       this.alertData(valuesFilter);
     } else {
       this.setState({ loading: true, error: null });
-      fetch("http://localhost:8080/user/login", requestOptions)
-        .then((response) => {
-          if (response.statusText !== "OK") {
-            this.setState({ loading: false, error: response.statusText });
-            this.alertError();
+      fetch("http://localhost:8080/api/login", requestOptions)
+        .then(async response => {
+          const isJson = response.headers.get('content-type')?.includes('application/json');
+          const data = isJson && await response.json();
+          if (!response.ok) {
+            this.alertError(data.message);
           } else {
             this.setState({ loading: false });
             this.alertSuccess();
-            return response.json();
+            return data;
           }
         })
-        .catch((error) => {
-          this.setState({ loading: false, error: error });
-          console.log(error);
-          this.alertError();
-        });
     }
   };
 
   componentDidMount() {
-    //Add .right by default
     this.rightSide.classList.add("right");
   }
 
@@ -120,6 +122,9 @@ export default class Login extends Component {
     const { isLogginActive } = this.state;
     const current = isLogginActive ? "Sign Up" : "Sign In";
     const currentActive = isLogginActive ? "Sign In" : "Sign Up";
+    if (this.state.loading === true && !this.state.data) {
+      return <PageLoading />;
+    }
     return (
       <React.Fragment>
         <div className="App">

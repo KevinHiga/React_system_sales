@@ -1,0 +1,13 @@
+.ProductsNew {
+  max-width: 540px;
+  margin-right: auto;
+  margin-left: auto;
+  justify-content: center;
+}
+.ProductsNew_Form {
+  box-shadow: 0px 0px 12px 2px rgb(15 15 15 / 20%);
+  text-align: center;
+  padding: 10px;
+  max-width: 100%;
+  border-radius: 1rem;
+}

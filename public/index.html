@@ -15,6 +15,45 @@
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <style type="text/css">
+    .scroll{
+      overflow-x: hidden;
+    }
+    ::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+    ::-webkit-scrollbar-button {
+      width: 0px;
+      height: 0px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #888;
+      border: 0px none #ffffff;
+      height: 10px;
+      border-radius: 50px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background:#555;
+    }
+    ::-webkit-scrollbar-thumb:active {
+      background: #555;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f1f1;
+      border: 0px none #ffffff;
+      border-radius: 50px;
+    }
+    ::-webkit-scrollbar-track:hover {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-track:active {
+      background: #f1f1f1;
+    }
+    ::-webkit-scrollbar-corner {
+      background: transparent;
+    }
+    </style>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -26,10 +65,10 @@
     -->
     <title>React App</title>
   </head>
-  <body>
+  <body class="scroll" style="height: 100%;">
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="app"></div>
-    <div id="modal"></div>
+    <div id="modal" style="height: 100%;"></div>
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -41,4 +80,6 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
+  <footer style="left: 0;bottom: 0;right: 0;position: absolute;">
+  </footer>
 </html>

@@ -1,0 +1,42 @@
+.dashboard{
+  background-color: #A6A6A6;
+  justify-content: center;
+  align-items: center;
+  background-size: 100% 52px;
+}
+.dashboard-group{
+  color: white;
+  background-color: #21313C;
+  width: 100%;
+}
+.dashboard-filters{
+  text-align: left;
+  display: inline;
+}
+.dashboard-refresh{
+  float: right;
+  height: 30px;
+  display: inline;
+}
+.dashboard-refresh-item{
+  border-radius: 3px;
+  height: 30px;
+}
+.dashboard-chart{
+  background-color: #21313C;
+}
+.dashboard-nav{
+  padding: 13px 18px 3px 18px;
+  background: white;
+  margin-bottom: 15px;
+}
+.dashboard-body{
+  margin-left: 30px;
+  margin-right: 30px;
+}
+.dashboard-item{
+  padding: 23px 28px 13px 28px;
+  background: white;
+  border-radius: 2px;
+}
+  

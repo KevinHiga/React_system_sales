@@ -17,8 +17,12 @@ class ProductsListContainer extends React.Component {
   }
 
   fetchData = async () => {
+    const requestOptions = {
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    };
     this.setState({ loading: true, error: null });
-    fetch("http://localhost:8080/products")
+    fetch("http://localhost:8080/api/product/all", requestOptions)
       .then((res) => res.json())
       .then((data) => {
         this.setState({ loading: false, data: data, _id: data._id });
@@ -40,14 +44,16 @@ class ProductsListContainer extends React.Component {
     const cookies = new Cookies();
     //this.state._id = localStorage.getItem("_id");
     this.state._id = cookies.get("_id");
+    console.log("ajdqpiwjdpqwi");
     console.log(this.state._id);
     this.setState({ modalIsOpen: false });
     this.setState({ loading: true, error: null });
     const requestOptions = {
       method: "DELETE",
+      credentials: "include",
     };
     fetch(
-      `http://localhost:8080/product/${this.state._id}`,
+      `http://localhost:8080/api/product/delete/${this.state._id}`,
       requestOptions
     )
       .then((res) => res.json())
@@ -56,7 +62,7 @@ class ProductsListContainer extends React.Component {
         cookies.remove("_id", { path: "/" });
         window.location = window.location.href;
         this.setState({ loading: true, error: null });
-        this.props.history.push("/products");
+        this.props.history.push("/product/all");
       })
       .catch((error) => {
         this.setState({ loading: false, error: error });

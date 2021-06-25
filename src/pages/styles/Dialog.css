@@ -1,0 +1,15 @@
+.Dialog {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 150px;
+  left: 120px;
+}
+.Dialog2 {
+  width: 550px;
+  height: 300px;
+  position: absolute;
+  top: 150px;
+  left: 620px;
+}
+  

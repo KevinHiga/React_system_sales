@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../pages/styles/Bookss.css";
+import "../components/styles/ForgotPasswordForm.css";
 
 class ForgotPasswordForm extends React.Component {
   handleClick = (e) => {
@@ -8,36 +8,33 @@ class ForgotPasswordForm extends React.Component {
   };
   render() {
     return (
-      <div>
-        <form onSubmit={this.props.onSubmit}>
-          <div className="form-group">
+      <div className="form">
+        <form className="form-group-p" onSubmit={this.props.onSubmit}>
+          <div>
             <label>Nombre del usuario</label>
             <input
               onChange={this.props.onChange}
               placeholder="Nombre del usuario"
-              className="form-control"
               type="text"
               name="username"
               value={this.props.formValues.username}
             />
           </div>
-          <div className="form-group">
+          <div>
             <label>Ingresar nueva contraseña</label>
             <input
               onChange={this.props.onChange}
               placeholder="Ingresar nueva contraseña"
-              className="form-control"
               type="password"
               name="newpassword"
               value={this.props.formValues.newpassword}
             />
           </div>
-          <div className="form-group">
+          <div>
             <label>Confirmar la contraseña</label>
             <input
               onChange={this.props.onChange}
               placeholder="Confirmar la contraseña"
-              className="form-control"
               type="password"
               name="confirmpassword"
               value={this.props.formValues.confirmpassword}
@@ -46,7 +43,7 @@ class ForgotPasswordForm extends React.Component {
           <button onClick={this.handleClick} className="btn btn-primary">
             Guardar
           </button>
-          <Link to="/login" className="btn btn-danger Bookss__buttons_cancel">
+          <Link to="/login" className="btn button_cancel">
             Cancelar
           </Link>
         </form>
